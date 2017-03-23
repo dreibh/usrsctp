@@ -36,7 +36,13 @@ AC_PROG_LIBTOOL
 AC_CANONICAL_HOST
 AC_CONFIG_MACRO_DIR([m4])
 
+dnl Disable pkg_config support for now
+dnl PKG_PROG_PKG_CONFIG
+dnl PKG_INSTALLDIR
+
 LIBCFLAGS="-DSCTP_PROCESS_LEVEL_LOCKS -DSCTP_SIMPLE_ALLOCATOR -D__Userspace__"
+APPCFLAGS=""
+
 case $host_os in
 darwin*)
   CFLAGS="$CFLAGS -std=c99 -Wno-deprecated-declarations -D__APPLE_USE_RFC_2292"
@@ -112,6 +118,7 @@ AC_ARG_ENABLE(inet,
                   [Support IPv4 @<:@default=yes@:>@]),
     enable_inet=$enableval,enable_inet=yes)
 if test x$enable_inet = xyes; then
+        APPCFLAGS="$APPCFLAGS -DINET"
         AC_DEFINE(INET, 1, [Support IPv4])
 fi
 
@@ -120,6 +127,7 @@ AC_ARG_ENABLE(inet6,
                   [Support IPv6 @<:@default=yes@:>@]),
     enable_inet6=$enableval,enable_inet6=yes)
 if test x$enable_inet6 = xyes; then
+        APPCFLAGS="$APPCFLAGS -DINET6"
         AC_DEFINE(INET6, 1, [Support IPv6])
 fi
 
@@ -173,4 +181,6 @@ AC_TRY_COMPILE([#ifdef HAVE_SYS_TYPES_H
 AC_C_BIGENDIAN
 
 AC_SUBST([LIBCFLAGS])
+AC_SUBST([APPCFLAGS])
+dnl AC_CONFIG_FILES([usrsctp.pc])
 AC_OUTPUT(Makefile usrsctplib/Makefile programs/Makefile)
