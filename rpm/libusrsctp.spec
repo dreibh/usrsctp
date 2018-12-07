@@ -1,5 +1,5 @@
 Name: libusrsctp
-Version: 1.0.0~td120
+Version: 1.0.0~td121
 Release: 1
 Summary: Portable SCTP Userland Stack
 License: BSD
@@ -15,26 +15,6 @@ BuildRoot: %{_tmppath}/%{name}-%{version}-build
 This is a userland SCTP stack supporting FreeBSD, Linux, Mac OS X and Windows.
 
 
-%package devel
-Summary: Portable SCTP Userland Stack (Development Files)
-Group: Development/Libraries
-Requires: %{name} = %{version}-%{release}
-
-%description devel
- This is a userland SCTP stack supporting FreeBSD, Linux, Mac OS X and Windows.
- This package contains the shared library for the Portable SCTP Userland Stack.
-
-
-%package examples
-Summary: Portable SCTP Userland Stack (Examples)
-Group: Applications/Internet
-Requires: %{name} = %{version}-%{release}
-
-%description examples
- This is a userland SCTP stack supporting FreeBSD, Linux, Mac OS X and Windows.
- This package contains the examples for the Portable SCTP Userland Stack.
-
-
 %prep
 %setup -q
 
@@ -45,17 +25,33 @@ make %{?_smp_mflags}
 %install
 make install DESTDIR=%{buildroot}
 
-#%clean
-#rm -rf "$RPM_BUILD_ROOT"
-
 %files
-%defattr(-,root,root,-)
 /usr/lib/libusrsctp.so*
+
+
+%package devel
+Summary: Portable SCTP Userland Stack (Development Files)
+Group: Development/Libraries
+Requires: %{name} = %{version}-%{release}
+
+%description devel
+ This is a userland SCTP stack supporting FreeBSD, Linux, Mac OS X and Windows.
+ This package contains the shared library for the Portable SCTP Userland Stack.
 
 %files devel
 /usr/include/usrsctp.h
 /usr/lib//libusrsctp*.a
 /usr/lib/libusrsctp*.so
+
+
+%package examples
+Summary: Portable SCTP Userland Stack (Examples)
+Group: Applications/Internet
+Requires: %{name} = %{version}-%{release}
+
+%description examples
+ This is a userland SCTP stack supporting FreeBSD, Linux, Mac OS X and Windows.
+ This package contains the examples for the Portable SCTP Userland Stack.
 
 %files examples
 /usr/lib/libusrsctp/client
@@ -73,6 +69,7 @@ make install DESTDIR=%{buildroot}
 /usr/lib/libusrsctp/test_timer
 /usr/lib/libusrsctp/tsctp
 /usr/lib/libusrsctp/http_client_upcall
+
 
 %changelog
 * Fri Dec 02 2016 Thomas Dreibholz <dreibh@simula.no> 1.0.0
