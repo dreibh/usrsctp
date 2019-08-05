@@ -4,7 +4,7 @@ Release: 1
 Summary: Portable SCTP Userland Stack
 License: BSD
 Group: Applications/Internet
-URL: https://github.com/sctplib/usrsctp
+URL: https://github.com/sctplab/usrsctp
 Source: %{name}-%{version}.tar.gz
 
 AutoReqProv: on
