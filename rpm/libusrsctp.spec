@@ -15,20 +15,6 @@ BuildRoot: %{_tmppath}/%{name}-%{version}-build
 This is a userland SCTP stack supporting FreeBSD, Linux, Mac OS X and Windows.
 
 
-%prep
-%setup -q
-
-%build
-%cmake -DCMAKE_INSTALL_PREFIX=/usr .
-make %{?_smp_mflags}
-
-%install
-make install DESTDIR=%{buildroot}
-
-%files
-/usr/lib/libusrsctp.so*
-
-
 %package devel
 Summary: Portable SCTP Userland Stack (Development Files)
 Group: Development/Libraries
@@ -37,11 +23,6 @@ Requires: %{name} = %{version}-%{release}
 %description devel
  This is a userland SCTP stack supporting FreeBSD, Linux, Mac OS X and Windows.
  This package contains the shared library for the Portable SCTP Userland Stack.
-
-%files devel
-/usr/include/usrsctp.h
-/usr/lib//libusrsctp*.a
-/usr/lib/libusrsctp*.so
 
 
 %package examples
@@ -53,22 +34,40 @@ Requires: %{name} = %{version}-%{release}
  This is a userland SCTP stack supporting FreeBSD, Linux, Mac OS X and Windows.
  This package contains the examples for the Portable SCTP Userland Stack.
 
+
+%prep
+%setup -q
+
+%build
+%cmake -DCMAKE_INSTALL_PREFIX=/usr .
+make %{?_smp_mflags}
+
+%install
+make install DESTDIR=%{buildroot}
+
+
+%files
+%defattr(-,root,root,-)
+%{_libdir}/libusrsctp.so*
+
+%files devel
+%{_includedir}/usrsctp.h
+%{_libdir}/libusrsctp*.a
+%{_libdir}/libusrsctp*.so
+
 %files examples
-/usr/lib/libusrsctp/client
-/usr/lib/libusrsctp/datachan_serv
-/usr/lib/libusrsctp/daytime_server
-/usr/lib/libusrsctp/discard_server
-/usr/lib/libusrsctp/echo_server
-/usr/lib/libusrsctp/ekr_client
-/usr/lib/libusrsctp/ekr_loop
-/usr/lib/libusrsctp/ekr_peer
-/usr/lib/libusrsctp/ekr_server
-/usr/lib/libusrsctp/http_client
-/usr/lib/libusrsctp/rtcweb
-/usr/lib/libusrsctp/test_libmgmt
-/usr/lib/libusrsctp/test_timer
-/usr/lib/libusrsctp/tsctp
-/usr/lib/libusrsctp/http_client_upcall
+${_bindir}/libusrsctp/client
+${_bindir}/libusrsctp/daytime_server
+${_bindir}/libusrsctp/discard_server
+${_bindir}/libusrsctp/echo_server
+${_bindir}/libusrsctp/ekr_client
+${_bindir}/libusrsctp/ekr_loop
+${_bindir}/libusrsctp/ekr_peer
+${_bindir}/libusrsctp/ekr_server
+${_bindir}/libusrsctp/http_client
+${_bindir}/libusrsctp/rtcweb
+${_bindir}/libusrsctp/test_libmgmt
+${_bindir}/libusrsctp/tsctp
 
 
 %changelog
