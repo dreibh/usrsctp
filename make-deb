@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 #
-# Debian Packaging Scripts
+# Debian/Ubuntu Packaging Scripts
 # Copyright (C) 2002-2020 by Thomas Dreibholz
 #
 # This program is free software: you can redistribute it and/or modify
@@ -35,7 +35,7 @@ set -e
 # Set current Debian debhelper version here
 # for building unstable/testing/stable packages
 # (See https://packages.qa.debian.org/d/debhelper.html for latest version!)
-DEBHELPER_LATEST_VERSION="12"
+DEBHELPER_LATEST_VERSION="13"
 
 
 # ====== Obtain package and version information =============================
